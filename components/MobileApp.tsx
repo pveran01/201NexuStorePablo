@@ -5,9 +5,12 @@ export interface MobileApp {
     name: string;
     developer: string;
     image: string;
-    rating: Double
+    reviews: Double;
+    ratingTotal: Double;
+    rating: Double;
     description: string;
     comments: string[];
+    platforms: string[];
 }
 
 interface MAppProps {
