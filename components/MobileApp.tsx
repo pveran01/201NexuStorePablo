@@ -13,7 +13,7 @@ export interface MobileApp {
     platforms: string[];
 }
 
-interface MAppProps {
+export interface MAppProps {
     app: MobileApp;
 }
 
