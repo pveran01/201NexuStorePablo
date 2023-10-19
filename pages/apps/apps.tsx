@@ -1,24 +1,24 @@
 import React from 'react';
-import clientPromise from "../lib/mongodb";
-import { MobileApp } from "../components/MobileApp";
-import MApp from '../components/MobileApp';
-import { Navbar } from '../components/Navbar';
+import clientPromise from "../../lib/mongodb";
+import { MobileApp } from "../../components/MobileApp";
+import SmallApp from "../../components/SmallApp"
+import { Navbar } from '../../components/Navbar';
 
 
-export interface HomeProps {
+export interface AppsProps {
   apps: MobileApp[];
 }
 
-const Home: React.FC<HomeProps> = ({apps}) => {
+const appsPage: React.FC<AppsProps> = ({apps}) => {
   return (
     <>
       <Navbar />
-      <h1 className="font-bold text-xl">Home Page</h1>
-      <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+      <h1 className="font-bold text-xl">Apps Page</h1>
+      <div className="p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-5">
       {apps.map((app) => {
         return(
           <div key={app.id}>
-            <MApp app = {app}/>
+            <SmallApp app = {app}/>
           </div>
         )
       })}
@@ -43,4 +43,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default Home;
+export default appsPage;
