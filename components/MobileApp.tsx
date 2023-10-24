@@ -8,6 +8,7 @@ export interface MobileApp {
     reviews: Double;
     ratingTotal: Double;
     rating: Double;
+    popularity: Double;
     description: string;
     comments: string[];
     platforms: string[];
