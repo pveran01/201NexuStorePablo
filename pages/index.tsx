@@ -3,11 +3,20 @@ import clientPromise from "../lib/mongodb";
 import { MobileApp } from "../components/MobileApp";
 import MApp from '../components/MobileApp';
 import { Navbar } from '../components/Navbar';
+import SearchBar from '../components/SearchBar';
 
 
 export interface HomeProps {
   apps: MobileApp[];
 }
+
+const handleSearch = (query: string) => {
+  // Implement your search logic here and update filteredApps state
+  const filtered = apps.filter((apps) =>  
+  apps.name.toLowerCase().includes(query.toLowerCase())
+  );
+    setFilteredApps(filtered);
+  };
 
 const Home: React.FC<HomeProps> = ({apps}) => {
   return (

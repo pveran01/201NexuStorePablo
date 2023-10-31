@@ -9,19 +9,27 @@ export interface AppsProps {
   apps: MobileApp[];
 }
 
+const handleSearch = (query: string) => {
+  // Implement your search logic here and update filteredApps state
+  const filtered = apps.filter((apps) =>  
+  apps.name.toLowerCase().includes(query.toLowerCase())
+  );
+    setFilteredApps(filtered);
+  };
+
 const appsPage: React.FC<AppsProps> = ({apps}) => {
   return (
     <>
       <Navbar />
-      <div className="pl-2">
-        <h1 className="font-bold text-xl">Apps Page</h1>
-        <label htmlFor="sort">Sort by:</label> 
-        <select name="sort" id="sort"> 
-          <option value="Rating">Rating</option> 
-          <option value="Popularity">Popularity</option> 
-          <option value="Alphabetically">Alphabetically</option> 
-        </select>
-      </div>
+      <h1 className="font-bold text-xl">Apps Page</h1>
+      <SearchBar onSearch={handleSearch} /> {/* Include the SearchBar */}
+      {/* Render the filtered apps */}
+      <label htmlFor="sort">Sort by:</label> 
+      <select name="sort" id="sort"> 
+        <option value="Rating">Rating</option> 
+        <option value="Popularity">Popularity</option> 
+        <option value="Alphabetically">Alphabetically</option> 
+      </select>
       <div className="p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-5">
       {apps.map((app) => {
         return(
