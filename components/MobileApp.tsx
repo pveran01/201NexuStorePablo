@@ -21,7 +21,7 @@ export interface MAppProps {
 const MApp: React.FC<MAppProps> = ({app}) => {
     return (
         <div className="overflow-hidden shadow-lg rounded-lg">
-          <img src={app.image} className="w-full"/>
+          <img src={app.image} className="w-full rounded-lg"/>
           <div className="px-6 py-4">
             <p className="font-bold text-xl mb-0 underline">{app.name}</p>
             <p className="font-bold text-m mb-2">{app.developer}</p>

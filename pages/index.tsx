@@ -12,16 +12,19 @@ export interface HomeProps {
 const Home: React.FC<HomeProps> = ({apps}) => {
   return (
     <>
-      <Navbar />
+      <div className="fixed">
+        <Navbar  />
+      </div>
       <div className="h-screen bg-slate-900 flex items-center justify-center flex-col">
         <h1 className="font-bold text-9xl text-center text-white">NexuStore</h1>
         <h1 className="font-bold text-3xl text-center text-white">Slogan goes here</h1>
       </div>
       <div className="bg-slate-300">
-        <div>
-          <h1 className="underline font-bold text-2xl pt-2">Popular Apps:</h1>
+        <div className="w-full float-root">
+          <h1 className="underline font-bold text-2xl float-left pl-2">Popular:</h1>
+          <a href="apps" className="font-bold text-5xl float-right pr-2 -mt-3">&#187;</a>
         </div>
-        <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        <div className="p-10 pt-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 w-full">
         {apps.map((app) => {
           return(
             <div key={app.id}>
