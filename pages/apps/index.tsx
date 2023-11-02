@@ -3,6 +3,7 @@ import clientPromise from "../../lib/mongodb";
 import { MobileApp } from "../../components/MobileApp";
 import SmallApp from "../../components/SmallApp"
 import { Navbar } from '../../components/Navbar';
+import SearchBar from '../../components/SearchBar';
 
 
 export interface AppsProps {
