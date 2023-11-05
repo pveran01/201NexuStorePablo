@@ -3,6 +3,7 @@ import { ObjectId } from 'mongodb';
 import clientPromise from "../../lib/mongodb";
 import { MobileApp } from "../../components/MobileApp";
 import { GetStaticProps, GetStaticPaths } from "next";
+import SearchBar from '../../components/SearchBar';
 
 function AppDetailsPage({ app }: {app: MobileApp }) {
     const router = useRouter()

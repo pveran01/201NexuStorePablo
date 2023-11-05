@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clientPromise from "../lib/mongodb";
 import { MobileApp } from "../components/MobileApp";
 import MApp from '../components/MobileApp';
@@ -10,15 +10,20 @@ export interface HomeProps {
   apps: MobileApp[];
 }
 
-const handleSearch = (query: string) => {
-  // Implement your search logic here and update filteredApps state
-  const filtered = apps.filter((apps) =>  
-  apps.name.toLowerCase().includes(query.toLowerCase())
-  );
-    setFilteredApps(filtered);
+const Home: React.FC<HomeProps> = ({apps}) => {
+const [searchResults, setSearchResults] = useState<MobileApp[]>(apps); // Initialize with apps
+
+  const handleSearch = (query: string) => {
+    if (!query) {
+      setSearchResults(apps);
+    } else {
+      const filtered = apps.filter((app) =>
+        app.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(filtered);
+    }
   };
 
-const Home: React.FC<HomeProps> = ({apps}) => {
   return (
     <>
       <div className="fixed">
@@ -27,6 +32,7 @@ const Home: React.FC<HomeProps> = ({apps}) => {
       <div className="h-screen bg-slate-900 flex items-center justify-center flex-col">
         <h1 className="font-bold text-9xl text-center text-white">NexuStore</h1>
         <h1 className="font-bold text-3xl text-center text-white">Slogan goes here</h1>
+        <SearchBar onSearch={handleSearch} />
       </div>
       <div className="bg-slate-300">
         <div className="w-full float-root">
@@ -34,7 +40,7 @@ const Home: React.FC<HomeProps> = ({apps}) => {
           <a href="apps" className="font-bold text-5xl float-right pr-2 -mt-3">&#187;</a>
         </div>
         <div className="p-10 pt-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 w-full">
-        {apps.map((app) => {
+        {searchResults.map((app) => { // Use searchResults here instead of apps
           return(
             <div key={app.id}>
               <MApp app = {app}/>

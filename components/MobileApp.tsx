@@ -1,5 +1,6 @@
 import { Double, ObjectId } from "mongodb";
 import Link from "next/link";
+import React, { useState } from 'react';
 
 export interface MobileApp {
     id: string;
@@ -33,7 +34,9 @@ const MApp: React.FC<MAppProps> = ({app}) => {
         </div>
         </div>
     )
+
 }
+
 
 export default MApp;
 
