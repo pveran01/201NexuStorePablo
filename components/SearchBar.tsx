@@ -1,4 +1,3 @@
-// components/SearchBar.tsx
 import React, { useState } from 'react';
 
 interface SearchBarProps {
@@ -9,8 +8,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {
-    // Call the onSearch function with the search query
+    console.log('Search triggered for query:', searchQuery); // Add this line
     onSearch(searchQuery);
+  };
+
+
+  // This function could be used to handle key press events if you wish
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return (
@@ -20,9 +27,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         placeholder="Search..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyPress={handleKeyPress} // Optional: Allows search on enter key press
         className="px-2 py-1 border rounded-md"
       />
-      <button onClick={handleSearch} className="ml-2 bg-blue-500 text-white px-3 py-1 rounded-md">
+      <button type="submit" onClick={handleSearch} className="ml-2 bg-blue-500 text-white px-3 py-1 rounded-md">
         Search
       </button>
     </div>

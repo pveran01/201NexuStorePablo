@@ -5,6 +5,7 @@ import { MobileApp } from "../../components/MobileApp";
 import MApp from '../../components/MobileApp';
 import { GetStaticProps, GetStaticPaths } from "next";
 import { Navbar } from '../../components/Navbar';
+import SearchBar from '../../components/SearchBar';
 
 function AppDetailsPage({ app }: {app: MobileApp }) {
     const router = useRouter()
