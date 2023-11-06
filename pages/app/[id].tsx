@@ -1,8 +1,10 @@
+import React from 'react';
 import { useRouter } from "next/router";
-import { ObjectId } from 'mongodb';
 import clientPromise from "../../lib/mongodb";
 import { MobileApp } from "../../components/MobileApp";
+import MApp from '../../components/MobileApp';
 import { GetStaticProps, GetStaticPaths } from "next";
+import { Navbar } from '../../components/Navbar';
 
 function AppDetailsPage({ app }: {app: MobileApp }) {
     const router = useRouter()
@@ -12,9 +14,19 @@ function AppDetailsPage({ app }: {app: MobileApp }) {
     }
 
     return (
-        <div>
-            <h1>{app.name} Details</h1>
-        </div>
+        <>
+            <div className='fixed'>
+                <Navbar />
+            </div>
+            <div className='overflow-hidden shadow-lg rounded-lg text-center'>
+                <img src={app.image} className='w-1/2 mx-auto rounded-lg'/>
+                <p>Name: {app.name}</p>
+                <p>Developer: {app.developer}</p>
+                <p>Raitng: {app.rating}</p>
+                <p>Description: {app.description}</p>
+                <p>Comments: {app.comments}</p>
+            </div>
+        </>
     );
 }
 
@@ -22,9 +34,13 @@ export async function getStaticPaths() {
     const client = await clientPromise;
     const db = client.db("NexuStore");
 
-    const apps = await db.collection("name").find( {} ).toArray();
+    const apps = await db.collection("Apps").find({name: {$regex: /test/i}}).toArray();
 
-    const paths = apps.map((app) => ({ params: { id : app._id.toString() }}));
+    const paths = apps.map((app) => ({
+        params: {
+            id : app.name,
+        },
+    }));
 
     return {
         paths,
@@ -48,7 +64,7 @@ export const getStaticProps: GetStaticProps<Props> = async( { params }) => {
     const client = await clientPromise;
     const db = client.db("NexuStore");
 
-    const app = await db.collection("name").find( {name: {$regex: /test/i}} );
+    const app = await db.collection("Apps").findOne( {name: {$regex: "test", $options: "i"}} );
 
     if(!app) {
         return {
