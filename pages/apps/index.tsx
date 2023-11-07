@@ -13,26 +13,38 @@ export interface AppsProps {
 
 const appsPage: React.FC<AppsProps> = ({apps}) => {
   const [filteredApps, setFilteredApps] = useState<MobileApp[]>([]);
+  const [sortMethod, setSortMethod] = useState('Rating'); // Default sorting method
 
   useEffect(() => {
-    setFilteredApps(apps);
-  }, [apps]);
+    // When the sortMethod or filteredApps change, sort and update filteredApps
+    const sortedApps = sortApps(filteredApps, sortMethod);
+    setFilteredApps(sortedApps);
+  }, [sortMethod, filteredApps]);
 
   const handleSearch = (query: string) => {
-    console.log('Before filtering:', apps);
     if (!query) {
-      setFilteredApps(apps); 
+      setFilteredApps(apps);
     } else {
       const filtered = apps.filter((app) =>
         app.name.toLowerCase().trim().includes(query.toLowerCase().trim())
       );
       setFilteredApps(filtered);
-        console.log('After filtering:', filtered);
-
     }
   };
+
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  const sortValue = e.target.value;
+    const sortValue = e.target.value;
+    setSortMethod(sortValue);
+  };
+  const sortApps = (apps: MobileApp[], sortMethod: string) => {
+    if (sortMethod === 'Rating') {
+      return apps.slice().sort((a, b) => b.rating.valueOf() - a.rating.valueOf());
+    } else if (sortMethod === 'Popularity') {
+      return apps.slice().sort((a, b) => b.popularity.valueOf() - a.popularity.valueOf());
+    } else if (sortMethod === 'Alphabetically') {
+      return apps.slice().sort((a, b) => a.name.localeCompare(b.name));
+    }
+    return apps;
   };
 
   return (
@@ -47,10 +59,10 @@ const appsPage: React.FC<AppsProps> = ({apps}) => {
       })}
       {/* ... */}      {/* Render the filtered apps */}
       <label htmlFor="sort">Sort by:</label> 
-      <select name="sort" id="sort"> 
-        <option value="Rating">Rating</option> 
-        <option value="Popularity">Popularity</option> 
-        <option value="Alphabetically">Alphabetically</option> 
+      <select name="sort" id="sort" onChange={handleSortChange}>
+        <option value="Rating">Rating</option>
+        <option value="Popularity">Popularity</option>
+        <option value="Alphabetically">Alphabetically</option>
       </select>
       <div className="p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-5">
       {filteredApps.map((app) => {
