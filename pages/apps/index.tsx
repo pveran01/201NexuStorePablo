@@ -67,7 +67,7 @@ const appsPage: React.FC<AppsProps> = ({apps}) => {
       <div className="p-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-5">
       {filteredApps.map((app) => {
         return(
-          <div key={app.id}>
+          <div key={app._id}>
             <SmallApp app = {app}/>
           </div>
         )
