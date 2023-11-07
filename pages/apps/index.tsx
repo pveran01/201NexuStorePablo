@@ -6,7 +6,6 @@ import { Navbar } from '../../components/Navbar';
 import SearchBar from '../../components/SearchBar';
 import MApp from '../../components/MobileApp';
 
-
 export interface AppsProps {
   apps: MobileApp[];
 }
@@ -37,8 +36,6 @@ const sortApps = (apps: MobileApp[], sortMethod: string) => {
       setFilteredApps(sortedApps);
     }
   }, [filteredApps, isInitialRender]);
-
-
 
   const handleSearch = (query: string) => {
     if (!query) {
