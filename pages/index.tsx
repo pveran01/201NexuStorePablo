@@ -42,7 +42,7 @@ const [searchResults, setSearchResults] = useState<MobileApp[]>(apps); // Initia
         <div className="p-10 pt-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 w-full">
         {searchResults.map((app) => { // Use searchResults here instead of apps
           return(
-            <div key={app.id}>
+            <div key={app._id}>
               <MApp app = {app}/>
             </div>
           )
