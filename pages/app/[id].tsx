@@ -22,7 +22,7 @@ function AppDetailsPage({ app }: {app: MobileApp }) {
             <div className='fixed'>
                 <Navbar />
             </div>
-            <div className='overflow-hidden rounded-lg text-left' style={{ marginLeft: '65px' }}>
+            <div className='overflow-hidden rounded-lg text-left' style={{ marginLeft: '64px' }}>
                 <div className='flex'>
                     <div className='w-3/4 p-4' style={{ marginTop: '80px'}}>
                         <p style={{ fontSize: '75px' }}>{app.name}</p>
