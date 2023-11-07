@@ -5,7 +5,6 @@ import SmallApp from "../../components/SmallApp"
 import { Navbar } from '../../components/Navbar';
 import SearchBar from '../../components/SearchBar';
 
-
 export interface AppsProps {
   apps: MobileApp[];
 }
@@ -17,9 +16,9 @@ const appsPage: React.FC<AppsProps> = ({apps}) => {
 
   useEffect(() => {
     // When the sortMethod or filteredApps change, sort and update filteredApps
-    const sortedApps = sortApps(filteredApps, sortMethod);
+    const sortedApps = sortApps(apps, sortMethod);
     setFilteredApps(sortedApps);
-  }, [sortMethod, filteredApps]);
+  }, [sortMethod, apps]);
 
   const handleSearch = (query: string) => {
     if (!query) {
