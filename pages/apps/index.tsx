@@ -4,6 +4,7 @@ import { MobileApp } from "../../components/MobileApp";
 import SmallApp from "../../components/SmallApp"
 import { Navbar } from '../../components/Navbar';
 import SearchBar from '../../components/SearchBar';
+import MApp from '../../components/MobileApp';
 
 
 export interface AppsProps {
@@ -68,7 +69,7 @@ const appsPage: React.FC<AppsProps> = ({apps}) => {
       {filteredApps.map((app) => {
         return(
           <div key={app._id}>
-            <SmallApp app = {app}/>
+            <MApp app = {app}/>
           </div>
         )
       })}
