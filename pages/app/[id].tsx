@@ -2,10 +2,13 @@ import React from 'react';
 import { useRouter } from "next/router";
 import clientPromise from "../../lib/mongodb";
 import { MobileApp } from "../../components/MobileApp";
-import MApp from '../../components/MobileApp';
 import { GetStaticProps, GetStaticPaths } from "next";
 import { Navbar } from '../../components/Navbar';
-import SearchBar from '../../components/SearchBar';
+import { ObjectId } from 'mongodb';
+
+type Props = {
+    app: MobileApp;
+}
 
 function AppDetailsPage({ app }: {app: MobileApp }) {
     const router = useRouter()
@@ -20,7 +23,7 @@ function AppDetailsPage({ app }: {app: MobileApp }) {
                 <Navbar />
             </div>
             <div className='overflow-hidden shadow-lg rounded-lg text-center'>
-                <img src={app.image} className='w-1/2 mx-auto rounded-lg'/>
+                <img src={app.image} className='w-1/4 mx-auto rounded-lg'/>
                 <p>Name: {app.name}</p>
                 <p>Developer: {app.developer}</p>
                 <p>Raitng: {app.rating}</p>
@@ -35,12 +38,10 @@ export async function getStaticPaths() {
     const client = await clientPromise;
     const db = client.db("NexuStore");
 
-    const apps = await db.collection("Apps").find({name: {$regex: /test/i}}).toArray();
+    const apps = await db.collection("Apps").find({} ).toArray();
 
     const paths = apps.map((app) => ({
-        params: {
-            id : app.name,
-        },
+        params: { id: app._id.toString() },
     }));
 
     return {
@@ -49,11 +50,7 @@ export async function getStaticPaths() {
     };
 }
 
-type Props = {
-    app: MobileApp;
-}
-
-export const getStaticProps: GetStaticProps<Props> = async( { params }) => {
+export const getStaticProps: GetStaticProps<Props> = async ( { params }) => {
     if(!params?.id) {
         return {
             notFound: true,
@@ -65,7 +62,7 @@ export const getStaticProps: GetStaticProps<Props> = async( { params }) => {
     const client = await clientPromise;
     const db = client.db("NexuStore");
 
-    const app = await db.collection("Apps").findOne( {name: {$regex: "test", $options: "i"}} );
+    const app = await db.collection("Apps").findOne({ _id: new ObjectId(id) } );
 
     if(!app) {
         return {

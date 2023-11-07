@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from 'react';
 
 export interface MobileApp {
-    id: string;
+    _id: string;
     name: string;
     developer: string;
     image: string;
@@ -25,7 +25,7 @@ const MApp: React.FC<MAppProps> = ({app}) => {
         <div className="overflow-hidden shadow-lg rounded-lg">
           <img src={app.image} className="w-full rounded-lg"/>
           <div className="px-6 py-4">
-            <Link href={`/app/${app.id}`}>
+            <Link href={`/app/${app._id}`}>
                 <p className="font-bold text-xl mb-0 underline">{app.name}</p>
             </Link>
             <p className="font-bold text-m mb-2">{app.developer}</p>
