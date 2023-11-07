@@ -15,12 +15,30 @@ export interface AppsProps {
 const appsPage: React.FC<AppsProps> = ({apps}) => {
   const [filteredApps, setFilteredApps] = useState<MobileApp[]>([]);
   const [sortMethod, setSortMethod] = useState('Rating'); // Default sorting method
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
+const sortApps = (apps: MobileApp[], sortMethod: string) => {
+    if (sortMethod === 'Rating') {
+      return apps.slice().sort((a, b) => b.rating.valueOf() - a.rating.valueOf());
+    } else if (sortMethod === 'Popularity') {
+      return apps.slice().sort((a, b) => b.popularity.valueOf() - a.popularity.valueOf());
+    } else if (sortMethod === 'Alphabetically') {
+      return apps.slice().sort((a, b) => a.name.localeCompare(b.name));
+    }
+    return apps;
+  };
+
+  const sortedApps = sortApps(filteredApps, sortMethod);
 
   useEffect(() => {
     // When the sortMethod or filteredApps change, sort and update filteredApps
-    const sortedApps = sortApps(filteredApps, sortMethod);
-    setFilteredApps(sortedApps);
-  }, [sortMethod, filteredApps]);
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      setFilteredApps(sortedApps);
+    }
+  }, [filteredApps, isInitialRender]);
+
+
 
   const handleSearch = (query: string) => {
     if (!query) {
@@ -37,16 +55,7 @@ const appsPage: React.FC<AppsProps> = ({apps}) => {
     const sortValue = e.target.value;
     setSortMethod(sortValue);
   };
-  const sortApps = (apps: MobileApp[], sortMethod: string) => {
-    if (sortMethod === 'Rating') {
-      return apps.slice().sort((a, b) => b.rating.valueOf() - a.rating.valueOf());
-    } else if (sortMethod === 'Popularity') {
-      return apps.slice().sort((a, b) => b.popularity.valueOf() - a.popularity.valueOf());
-    } else if (sortMethod === 'Alphabetically') {
-      return apps.slice().sort((a, b) => a.name.localeCompare(b.name));
-    }
-    return apps;
-  };
+  
 
   return (
     <>
