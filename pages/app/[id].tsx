@@ -22,13 +22,35 @@ function AppDetailsPage({ app }: {app: MobileApp }) {
             <div className='fixed'>
                 <Navbar />
             </div>
-            <div className='overflow-hidden shadow-lg rounded-lg text-center'>
-                <img src={app.image} className='w-1/4 mx-auto rounded-lg'/>
-                <p>Name: {app.name}</p>
-                <p>Developer: {app.developer}</p>
-                <p>Raitng: {app.rating}</p>
-                <p>Description: {app.description}</p>
-                <p>Comments: {app.comments}</p>
+            <div className='overflow-hidden rounded-lg text-left' style={{ marginLeft: '65px' }}>
+                <div className='flex'>
+                    <div className='w-3/4 p-4' style={{ marginTop: '80px'}}>
+                        <p style={{ fontSize: '75px' }}>{app.name}</p>
+                        <p style={{ fontSize: '20px' }}>{app.developer}</p>
+                        <p> 
+                            { Number(app.rating).toFixed(1) }
+                            <span role='img' aria-label='star'>⭐</span> 
+                        </p>
+                    </div>
+                    <div className='w-3/4' style={{ marginRight: '70px' }}>
+                        <img src={app.image} className='mx-auto rounded-lg' style={{ width: '250px', height: '250px', marginTop: '70px'}} />
+                    </div>
+                </div>
+            </div>
+            <div className='overflow-hidden rounded-lg text-left' style={{ marginTop: '30px', marginLeft: '80px' }}>
+                <p style={{ fontSize: '30px' }}>About this app:</p>
+                <p style={{ fontSize: '20px' }}>{app.description}</p>
+            </div>
+            <div className='overflow-hidden rouned-lg text-left' style={{ marginTop: '20px', marginLeft: '80px' }}>
+                <p style={{ fontSize: '30px' }}>Comments: </p>
+                <p style={{ fontSize: '20px' }}>
+                    {app.comments.map((comment, index) => (
+                        <React.Fragment key={index}>
+                            {comment}
+                            <br />
+                        </React.Fragment>
+                    ))}
+                </p>
             </div>
         </>
     );
@@ -38,7 +60,7 @@ export async function getStaticPaths() {
     const client = await clientPromise;
     const db = client.db("NexuStore");
 
-    const apps = await db.collection("Apps").find({} ).toArray();
+    const apps = await db.collection("Apps").find({}).toArray();
 
     const paths = apps.map((app) => ({
         params: { id: app._id.toString() },
