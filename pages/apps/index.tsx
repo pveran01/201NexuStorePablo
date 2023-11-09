@@ -82,7 +82,7 @@ export async function getServerSideProps() {
     const client = await clientPromise;
     const db = client.db("NexuStore");
 
-    const apps = await db.collection("Apps").find({name: {$regex: /test/i }}).sort({name: -1}).toArray();
+    const apps = await db.collection("Apps").find().toArray();
     return {
       props: {
         apps: JSON.parse(JSON.stringify(apps))
