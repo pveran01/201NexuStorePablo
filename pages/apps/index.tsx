@@ -5,6 +5,7 @@ import SmallApp from "../../components/SmallApp"
 import { Navbar } from '../../components/Navbar';
 import SearchBar from '../../components/SearchBar';
 import MApp from '../../components/MobileApp';
+import { useRouter } from 'next/router';
 
 export interface AppsProps {
   apps: MobileApp[];
@@ -14,12 +15,25 @@ export interface AppsProps {
 const appsPage: React.FC<AppsProps> = ({apps}) => {
   const [filteredApps, setFilteredApps] = useState<MobileApp[]>([]);
   const [sortMethod, setSortMethod] = useState('Rating'); // Default sorting method
+  const router = useRouter();
+  const query = router.query.query as string;
+
 
   useEffect(() => {
-    // When the sortMethod or filteredApps change, sort and update filteredApps
-    const sortedApps = sortApps(apps, sortMethod);
-    setFilteredApps(sortedApps);
-  }, [sortMethod, apps]);
+    // Handle search
+    let updatedApps = apps;
+    if (query) {
+      updatedApps = updatedApps.filter((app) =>
+        app.name.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+
+    // Handle sorting
+    updatedApps = sortApps(updatedApps, sortMethod);
+
+    setFilteredApps(updatedApps);
+  }, [query, apps, sortMethod]);
+
 
   const handleSearch = (query: string) => {
     if (!query) {

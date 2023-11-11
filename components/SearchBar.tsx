@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -6,10 +7,10 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
 
   const handleSearch = () => {
-    console.log('Search triggered for query:', searchQuery); // Add this line
-    onSearch(searchQuery);
+    router.push(`/apps?query=${searchQuery}`);
   };
 
 

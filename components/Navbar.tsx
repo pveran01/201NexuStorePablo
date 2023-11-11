@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import SearchBar from './SearchBar';
 
 export const Navbar = () => {
     const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleSearch = () => {
-        router.push(`/apps?search=${searchQuery}`);
-    };
+
 
     return (
         <>
@@ -29,21 +28,9 @@ export const Navbar = () => {
                 <a href="/" className="lg:inline-flex lg:w-auto w-full px-2 py-1 rounded text-white font-bold items-center justify-center hover:bg-slate-400 hover:text-white">
                     Profile
                 </a>
-                <div className="search-bar-container">
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                        className="px-2 py-1 border rounded-md"
-                    />
-                    <button onClick={handleSearch} className="ml-2 bg-blue-500 text-white px-3 py-1 rounded-md">
-                        Search
-                    </button>
+                <SearchBar onSearch={() => {}} /> {/* onSearch prop is no longer needed */}
                 </div>
             </div>
-        </div>
         </nav>
         </>
     )
