@@ -51,7 +51,6 @@ const appsPage: React.FC<AppsProps> = ({apps}) => {
     <>
       <Navbar />
       <h1 className="font-bold text-xl">Apps Page</h1>
-      <SearchBar onSearch={handleSearch} /> {/* Include the SearchBar */}
       {/* Render the filtered apps */}
       {/* ... rest of the component */}
       {filteredApps.map((app) => {
