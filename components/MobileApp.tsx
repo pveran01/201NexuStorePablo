@@ -23,7 +23,7 @@ export interface MAppProps {
 const MApp: React.FC<MAppProps> = ({app}) => {
     return (
         <div className="overflow-hidden shadow-lg rounded-lg">
-          <img src={app.image} className="w-full rounded-lg"/>
+          <img src={app.image} alt="App Image" className="w-full rounded-lg"/>
           <div className="px-6 py-4">
             <Link href={`/app/${app._id}`}>
                 <p className="font-bold text-xl mb-0 underline">{app.name}</p>
