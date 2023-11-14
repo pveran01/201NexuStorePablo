@@ -7,10 +7,10 @@ export interface MobileApp {
     name: string;
     developer: string;
     image: string;
-    reviews: Double;
-    ratingTotal: Double;
-    rating: Double;
-    popularity: Double;
+    reviews: number;
+    ratingTotal: number;
+    rating: number;
+    popularity: number;
     description: string;
     comments: string[];
     platforms: string[];
