@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Navbar } from '../components/Navbar';
+import Link from 'next/link';
 
 
 const SignUp = () => {
@@ -68,6 +69,9 @@ const SignUp = () => {
           </div>
           <button type="submit">Sign Up</button>
         </form>
+        <div className="login-link">
+          <p>Aleady have an account? <Link href="/login" passHref><span style={{ color: '#0056b3', textDecoration: 'underline', cursor: 'pointer' }}>Login</span></Link></p>
+        </div>
       </div>
       <style jsx>{`
         .signup-page {

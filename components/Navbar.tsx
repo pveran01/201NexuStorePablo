@@ -17,7 +17,7 @@ export const Navbar = () => {
         <div className="hidden w-full lg:inline-flex lg:flex-grow lg:w-auto pr-3">
             <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
             <a href="/signup" className="lg:inline-flex lg:w-auto w-full px-2 py-1 rounded text-white font-bold items-center justify-center hover:bg-slate-400 hover:text-white">
-                        Sign Up
+                        Sign Up / Login
                     </a>
                 <a href="/" className="lg:inline-flex lg:w-auto w-full px-2 py-1 rounded text-white font-bold items-center justify-center hover:bg-slate-400 hover:text-white">
                     Home
