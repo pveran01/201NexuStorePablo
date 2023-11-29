@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from "next/router";
 import clientPromise from "../../lib/mongodb";
 import { MobileApp } from "../../components/MobileApp";
@@ -11,7 +11,30 @@ type Props = {
 }
 
 function AppDetailsPage({ app }: { app: MobileApp }) {
-	const router = useRouter()
+
+	const [newComment, setNewComment] = useState('');
+  	const router = useRouter();
+
+	const handleKeyPress = (event: React.KeyboardEvent) => {
+		if (event.key === 'Enter') {
+		  handleComment();
+		}
+	  };
+
+
+	  const handleComment = async () => {
+		if (!newComment.trim()) {
+		  return; // Prevent adding empty comments
+		}
+	
+		// Add the new comment to the list
+		const updatedComments = [...app.comments, newComment];
+	
+		// Update the comment list in your database (if needed)
+		
+		  // Reload the page to reflect the changes
+		  router.reload();
+	  };
 
 	if (router.isFallback) {
 		return <div>Loading...</div>;
@@ -51,6 +74,17 @@ function AppDetailsPage({ app }: { app: MobileApp }) {
 						</React.Fragment>
 					))}
 				</p>
+				<input
+        			type="text"
+					value={newComment}
+          			onChange={(e) => setNewComment(e.target.value)}
+        			placeholder="Add Comment..."
+        			onKeyPress={handleKeyPress} // Optional: Allows search on enter key press
+        			className="px-2 py-1 border rounded-md"
+      			/>
+      			<button type="submit" onClick={handleComment} className="ml-2 bg-blue-500 text-white px-3 py-1 rounded-md">
+        			Submit
+      			</button>
 			</div>
 		</>
 	);
