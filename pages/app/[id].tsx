@@ -20,6 +20,16 @@ function AppDetailsPage({ app }: { app: MobileApp }) {
 		  handleComment();
 		}
 	  };
+	  const handleDeleteComment = async (index: number) => {
+		//If user is a moderator
+		try {
+
+			
+		  router.reload();
+		} catch (error) {
+		  console.error("Error deleting comment from the database:", error);
+		}
+	  };
 
 
 	  const handleComment = async () => {
@@ -32,8 +42,8 @@ function AppDetailsPage({ app }: { app: MobileApp }) {
 	
 		// Update the comment list in your database (if needed)
 		
-		  // Reload the page to reflect the changes
-		  router.reload();
+		// Reload the page to reflect the changes
+		router.reload();
 	  };
 
 	if (router.isFallback) {
@@ -66,14 +76,19 @@ function AppDetailsPage({ app }: { app: MobileApp }) {
 			</div>
 			<div className='overflow-hidden rouned-lg text-left' style={{ marginTop: '20px', marginLeft: '80px' }}>
 				<p style={{ fontSize: '30px' }}>Comments: </p>
-				<p style={{ fontSize: '20px' }}>
-					{app.comments.map((comment, index) => (
-						<React.Fragment key={index}>
-							{comment}
-							<br />
-						</React.Fragment>
-					))}
-				</p>
+ 			 <div style={{ fontSize: '20px' }}>
+    			{app.comments.map((comment, index) => (
+     		 <div key={index} className="mb-2">
+       		 {comment}
+        	<button
+        	  onClick={() => handleDeleteComment(index)}
+         	 className="ml-2 text-red-500"
+        	>
+         	 Delete
+        	</button>
+      		</div>
+    		))}
+				</div>
 				<input
         			type="text"
 					value={newComment}
