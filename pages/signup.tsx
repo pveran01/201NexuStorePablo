@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
@@ -19,7 +18,7 @@ const SignUp = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (response.ok) {
@@ -46,15 +45,6 @@ const SignUp = () => {
               type="text" 
               value={username} 
               onChange={(e) => setUsername(e.target.value)} 
-              required 
-            />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input 
-              type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
               required 
             />
           </div>
