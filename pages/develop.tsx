@@ -42,47 +42,51 @@ const developPage = () => {
     return (
     <>
         <Navbar />
-        <div>
-            <h1>Submit an Application Request</h1>
-            <form onSubmit={handleDeveloper}>
-                <div>
-                    <label>Name:</label>
+        <div className="content-center text-center">
+            <h1 className="bg-slate-500 py-2 text-white font-bold">Submit an Application Request</h1>
+            <form onSubmit={handleDeveloper} className="py-4">
+                <div className="py-2">
+                    <label className="">Name: </label>
                     <input
                         type="text"
                         value={appName}
                         onChange={(e) => setAppName(e.target.value)}
                         required
+                        className="drop-shadow-lg rounded-lg"
                     />
                 </div>
-                <div>
-                    <label>Developer:</label>
+                <div className="py-2">
+                    <label>Developer: </label>
                     <input
                         type="text"
                         value={developerName}
                         onChange={(e) => setDeveloperName(e.target.value)}
                         required
+                        className="drop-shadow-lg rounded-lg"
                     />
                 </div>
-                <div>
-                    <label>Image Link:</label>
+                <div className="py-2">
+                    <label>Image Link: </label>
                     <input
                         type="text"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                         required
+                        className="drop-shadow-lg rounded-lg"
                     />
                 </div>
-                <div>
-                    <label>Description:</label>
+                <div className="py-2">
+                    <label>Description: </label>
                     <input
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
+                        className="drop-shadow-lg rounded-lg"
                     />
                 </div>
-                <div>
-                    <label>Platforms:</label>
+                <div className="py-2">
+                    <label>Platforms: </label>
                     <select name='platforms' multiple onChange={(e) => setPlatforms(e.target.value)}>
                         <option value='apple'>Apple</option>
                         <option value='android'>Android</option>
@@ -90,7 +94,7 @@ const developPage = () => {
                     </select>
                 </div>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type='submit'>Submit</button>
+                <button type='submit' className="bg-green-400 px-2 rounded-lg">Submit</button>
             </form>
         </div>
     </>
